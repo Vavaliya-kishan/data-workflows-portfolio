@@ -34,21 +34,3 @@
     });
   });
 }());
-
-// Progressive enhancement: content remains visible without JavaScript.
-(function () {
-  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.remove('reveal-pending');
-        entry.target.classList.add('reveal-ready');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold: 0.06, rootMargin: '0px 0px 30px 0px'});
-  document.querySelectorAll('.about-grid, .service, .academic-card, .process-grid li, .contact-route').forEach(function (element) {
-    element.classList.add('reveal-pending');
-    observer.observe(element);
-  });
-}());
